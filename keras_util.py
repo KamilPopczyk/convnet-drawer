@@ -75,15 +75,11 @@ def convert_drawer_model(model):
     return figure
 
 
-def load_saved_model(file_path):
-    model = load_model(file_path)
-    return model
-
-
 def main():
-    model = load_model('model.h5')
-    f = convert_drawer_model(model)
-    f.save_fig("model.svg")
+    alex_net = AlexNet.get_model()
+    f = convert_drawer_model(alex_net)
+    f.save_fig("alex_net.svg")
+
 
 
 if __name__ == '__main__':
