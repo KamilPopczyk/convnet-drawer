@@ -7,8 +7,13 @@ from keras.models import load_model
 verbose = True
 
 
-def get_dense_obj(class_object, config):
+def get_dense_obj(class_object, config, next_activation_layer_config=None):
     units = config.get("units", False)
+    if verbose:
+        if next_activation_layer_config:
+            activation = next_activation_layer_config["activation"]
+            return class_object(units, activation=activation)
+
     return class_object(units)
 
 
@@ -47,7 +52,7 @@ def convert_drawer_model(model):
     figure = Model(input_shape=_input_shape[1:])
     prev_class_obj = None
     prev_class_config = None
-    for config in model.get_config()["layers"]:
+    for i, config in enumerate(model.get_config()["layers"]):
         class_name = config.get("class_name", False)
         class_config = config.get("config", False)
         if class_name and class_config:
@@ -64,7 +69,14 @@ def convert_drawer_model(model):
                 max_pooling_2d = get_maxpooling2d_obj(class_obj, class_config)
                 figure.add(max_pooling_2d)
             elif class_name == "Dense":
-                dense = get_dense_obj(class_obj, class_config)
+                next_activation_layer_config = None
+                if verbose:
+                    next_activation_layer = model.get_config()["layers"][i+1]
+                    if next_activation_layer["class_name"] == "Activation":
+                        next_activation_layer_config = next_activation_layer["config"]
+                        dense = get_dense_obj(class_obj, class_config, next_activation_layer_config=next_activation_layer_config)
+                else:
+                    dense = get_dense_obj(class_obj, class_config)
                 figure.add(dense)
             elif class_name == "Dropout":
                 prev_class_obj = class_obj

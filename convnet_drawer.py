@@ -334,11 +334,15 @@ class Flatten(Layer):
 
 
 class Dense(Layer):
-    def __init__(self, units):
+    def __init__(self, units, activation=None):
+        self.activation = activation
         super(Dense, self).__init__(filters=units)
 
     def get_description(self):
-        return ["dense"]
+        description = ["dense"]
+        if self.activation:
+            description.append("activation {}".format(self.activation))
+        return description
 
     def set_objects(self):
         x1 = self.prev_feature_map.right
