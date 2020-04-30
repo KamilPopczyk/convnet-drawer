@@ -81,6 +81,5 @@ def main():
     f.save_fig("alex_net.svg")
 
 
-
 if __name__ == '__main__':
     main()
