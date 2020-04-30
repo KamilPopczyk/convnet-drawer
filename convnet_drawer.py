@@ -62,6 +62,10 @@ class Model:
                     new_h = h * layer.strides[0] + max(layer.kernel_size[0] - layer.strides[0], 0)
                     new_w = w * layer.strides[1] + max(layer.kernel_size[1] - layer.strides[1], 0)
                 self.feature_maps.append(FeatureMap3D(new_h, new_w, filters))
+            elif isinstance(layer, Dropout):
+                new_h = h * layer.strides[0]
+                new_w = w * layer.strides[1]
+                self.feature_maps.append(FeatureMap3D(new_h, new_w, filters))
             else:
                 if layer.padding == "same":
                     new_h = math.ceil(h / layer.strides[0])
@@ -254,6 +258,16 @@ class Conv2D(Layer):
                 "stride {}".format(self.strides)]
 
 
+class Dropout(Layer):
+    def __init__(self, filters, kernel_size, strides, padding, rate):
+        self.rate = rate
+        super(Dropout, self).__init__(filters=filters, kernel_size=kernel_size, strides=strides, padding=padding)
+
+    def get_description(self):
+        return ["dropout",
+                "rate {}".format(self.rate)]
+
+
 class Deconv2D(Layer):
     def get_description(self):
         return ["deconv{}x{}, {}".format(self.kernel_size[0], self.kernel_size[1], self.filters),
@@ -338,6 +352,9 @@ class Dense(Layer):
             self.objects.append(Text(x, y + i * config.text_size, "{}".format(description),
                                      color=config.text_color_layer, size=config.text_size))
 
+
+class Activation(Dense):
+    pass
 
 def get_rectangular(h, w, c, dx=0, color=(0, 0, 0)):
     p = [[0, -h],
