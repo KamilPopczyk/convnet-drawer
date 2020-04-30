@@ -11,7 +11,6 @@ def get_dense_obj(class_object, config):
 
 
 def get_maxpooling2d_obj(class_object, config):
-    print(config)
     pool_size = config.get("pool_size", False)
     strides = config.get("strides", False)
     padding = config.get("padding", False)
