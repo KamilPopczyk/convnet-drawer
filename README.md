@@ -6,6 +6,14 @@ Inspired by the draw_convnet project [1].
 Models can be visualized via Keras-like ([Sequential](https://keras.io/models/sequential/)) model definitions.
 The result can be saved as SVG file or pptx file!
 
+## Added features in this fork
+New features in fork:
+
+- Dropout layer support
+- Activation layer support (skipping)
+- Verbose mode (add activation function in layers)
+
+
 ## Requirements
 python-pptx (if you want to save models as pptx)
 
@@ -108,8 +116,6 @@ save_model_to_file(model, "example.pdf")
 - *Dense*
   - ```Dense(units)```
   - e.g. `Dense(4096)`
-- *Dropout*
-  - ```Dropout(rate)```
 
 ### Visualization Parameters
 Visualization Parameters can be found in [config.py](config.py).
