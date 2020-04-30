@@ -108,6 +108,8 @@ save_model_to_file(model, "example.pdf")
 - *Dense*
   - ```Dense(units)```
   - e.g. `Dense(4096)`
+- *Dropout*
+  - ```Dropout(rate)```
 
 ### Visualization Parameters
 Visualization Parameters can be found in [config.py](config.py).
