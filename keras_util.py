@@ -66,9 +66,6 @@ def convert_drawer_model(model):
             elif class_name == "Dropout":
                 prev_class_obj = class_obj
                 prev_class_config = class_config
-                # dropout = get_dropout_obj(class_obj, prev_model_config)
-                # figure.add(prev_model)
-                # figure.add(dropout)
             elif class_name == "Activation":
                 pass
             else:
