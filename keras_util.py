@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from keras_models import AlexNet
 from convnet_drawer import Model, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D
+from keras.models import load_model
 
 
 def get_dense_obj(class_object, config):
@@ -51,6 +52,11 @@ def convert_drawer_model(model):
             raise ValueError
 
     return figure
+
+
+def load_saved_model(file_path):
+    model = load_model(file_path)
+    return model
 
 
 def main():
