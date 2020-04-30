@@ -99,7 +99,7 @@ class Model:
             - config.bounding_box_margin
         self.width = self.feature_maps[-1].right + config.bounding_box_margin * 2 + 30 * 2
         # TODO: automatically calculate the ad-hoc offset "30" from description length
-        self.height = - self.y * 2 + config.text_size
+        self.height = - self.y * 2 + config.text_size + config.extra_height
 
     def save_fig(self, filename):
         self.build()

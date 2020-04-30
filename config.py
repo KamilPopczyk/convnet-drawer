@@ -12,3 +12,4 @@ line_color_feature_map = (0, 0, 0)
 line_color_layer = (0, 0, 255)
 text_color_feature_map = (0, 0, 0)
 text_color_layer = (0, 0, 0)
+extra_height = 20
