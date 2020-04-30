@@ -253,9 +253,15 @@ class Layer:
 
 
 class Conv2D(Layer):
+    def __init__(self, filters, kernel_size, strides, padding, activation=None):
+        self.activation = activation
+        super(Conv2D, self).__init__(filters=filters, kernel_size=kernel_size, strides=strides, padding=padding)
     def get_description(self):
-        return ["conv{}x{}, {}".format(self.kernel_size[0], self.kernel_size[1], self.filters),
+        description = ["conv{}x{}, {}".format(self.kernel_size[0], self.kernel_size[1], self.filters),
                 "stride {}".format(self.strides)]
+        if self.activation:
+            description.append("activation {}".format(self.activation))
+        return description
 
 
 class Dropout(Layer):

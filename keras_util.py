@@ -4,6 +4,8 @@ from keras_models import AlexNet
 from convnet_drawer import Model, Conv2D, MaxPooling2D, Flatten, Dense, GlobalAveragePooling2D, Dropout, Activation
 from keras.models import load_model
 
+verbose = True
+
 
 def get_dense_obj(class_object, config):
     units = config.get("units", False)
@@ -22,7 +24,9 @@ def get_conv2d_obj(class_object, config):
     kernel_size = config.get("kernel_size", False)
     strides = config.get("strides", False)
     padding = config.get("padding", False)
-    return class_object(filters, kernel_size, strides, padding)
+    if verbose:
+        activation = config.get("activation")
+    return class_object(filters, kernel_size, strides, padding, activation=activation)
 
 
 def get_dropout_obj(class_object, config, next_conv2d_layer_config):
